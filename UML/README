@@ -19,6 +19,7 @@ Si une poubelle est bientôt pleine, la valeur dans le tableau passe à 2
 On peut collecter les déchets de toutes les poubelles étant dans le centre, cela vide les poubelles et met à jour les statistiques par rue
 
 
+
 Poubelle :
 Chaque poubelle a un id contenant le nom du centre de tri et son indice dans le tableau du centre (si le centre s'appelle "Depot" et la poubelle correspond à l'indice 5 du tableau, l'id de la poubelle est "Depot5")
 Chaque poubelle est disposée à une et une seule adresse
@@ -35,24 +36,32 @@ La poubelle se vide à la collecte
 Une poubelle n'appartient qu'à un centre de tri, un centre de tri peut disposer d'un certain nombre statique de poubelles
 
 
+
+Rue :
+Une Rue est composée du nom de la rue, d'un code postal (compris strictement entre 1000 et 100000) et d'une ville
+
+On peut prendre les attributs de la rue
+
+
+
+Adresse :
+Une adresse est composée d'un numéro (-1 pour les poubelles jamais été placées, 0 pour les poubelles qui sont au centre mais qui ont été placées auparavant, supérieur strictement à 0 pour le reste), et de tout ce qui est attribué à une rue
+
+On peut prendre les attributs de l'adresse et de la rue
+L'adresse d'un centre de tri ne change pas
+L'adresse d'une poubelle est initialisée à celle du centre, sauf le numéro qui est initialisé à -1
+Lorsqu'une poubelle est placée, tous les attributs changent pour avoir la nouvelle adresse
+Lorsqu'une poubelle est retirée, le numéro passe à 0 et les attributs ne changent pas pour faire les statistiques sur la rue
+
+
+
 StatsRue :
 StatsRue est la statistique de déchets collectés pour une rue en particulier
 On suppose que chaque rue est unique au sein de la même ville
 Il y a une statistique pour le poids total de déchets pour chaque couleur de poubelle, elles sont positives ou nulles
 Il y a une statistique pour le poids de déchets jetés dans la bonne poubelle pour chaque couleur de poubelle, elles sont positives ou nulles et inférieures ou égales au poids total pour la même couleur
 
-On peut prendre le nom de la rue, mais on ne peut pas le changer
+On peut prendre les attributs de la rue, mais on ne peut pas les changer
 On peut prendre la statistique que l'on veut, premier paramètre étant la couleur (si on veut la somme de toutes les couleurs, on met "tout" comme couleur), deuxième paramètre étant la catégorie ("total", "correct ou "incorrect")
 Quand une collecte de déchets est faite, on change le poids total selon la couleur et le poids total
 On change également le poids de déchets jetés correctement selon la couleur et le poids associé au type correct
-
-
-Adresse :
-Une adresse est composée d'un numéro (-1 pour les poubelles jamais été placées, 0 pour les poubelles qui sont au centre mais qui ont été placées auparavant, supérieur strictement à 0 pour le reste),
-une rue, un code postal (compris strictement entre 1000 et 100000) et une ville
-
-On peut prendre les attributs de l'adresse
-L'adresse d'un centre de tri ne change pas
-L'adresse d'une poubelle est initialisée à celle du centre, saud le numéro qui est initialisé à -1
-Lorsqu'une poubelle est retirée, le numéro passe à 0 et les attributs ne changent pas pour faire les statistiques
-Lorsqu'une poubelle est placée, tous les attributs changent pour avoir la nouvelle adresse
