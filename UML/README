@@ -63,9 +63,10 @@ StatsRue est la statistique de déchets collectés pour une rue en particulier
 L'objet servant de statistique totale pour une ville entière a l'attribut estTotal en "true", si l'objet est attribué à une rue uniquement, l'attribut a la valeur "false"
 Il y a une statistique pour le poids total de déchets pour chaque couleur de poubelle, elles sont positives ou nulles
 Il y a une statistique pour le poids de déchets jetés dans la bonne poubelle pour chaque couleur de poubelle, elles sont positives ou nulles et inférieures ou égales au poids total pour la même couleur
+Il y a les mêmes statistiques mais par type de déchets plutôt que par couleur
 
 On peut savoir si la statistique correspond à une rue ou la ville entière
 On peut prendre les attributs de la rue, mais on ne peut pas les changer
-On peut prendre la statistique que l'on veut, premier paramètre étant la couleur (si on veut la somme de toutes les couleurs, on met "tout" comme couleur), deuxième paramètre étant la catégorie ("total", "correct ou "incorrect")
-Quand une collecte de déchets est faite, on change le poids total selon la couleur et le poids total
-On change également le poids de déchets jetés correctement selon la couleur et le poids associé au type correct
+On peut prendre la statistique que l'on veut, premier paramètre étant la couleur/le type (si on veut la somme de toutes les couleurs, on met "tout" comme couleur, ne marche pas du côté type), deuxième paramètre étant la catégorie ("total", "correct" ou "incorrect")
+Quand une collecte de déchets est faite, on change le poids total selon la couleur/le type et le poids total
+On change également le poids de déchets jetés correctement selon la couleur/le type et le poids associé
