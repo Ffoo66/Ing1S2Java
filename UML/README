@@ -61,8 +61,8 @@ Lorsqu'une poubelle est retirée, le numéro passe à 0 et les attributs ne chan
 StatsRue :
 StatsRue est la statistique de déchets collectés pour une rue en particulier
 L'objet servant de statistique totale pour une ville entière a l'attribut estTotal en "true", si l'objet est attribué à une rue uniquement, l'attribut a la valeur "false"
-Il y a une statistique pour le poids total de déchets pour chaque couleur de poubelle, elles sont positives ou nulles
-Il y a une statistique pour le poids de déchets jetés dans la bonne poubelle pour chaque couleur de poubelle, elles sont positives ou nulles et inférieures ou égales au poids total pour la même couleur
+Pour chaque couleur de poubelle, il y a une statistique pour le poids total de déchets (l'indice 0 des tableaux correspondants), elles sont positives ou nulles
+Pour chaque couleur de poubelle, il y a une statistique pour le poids de déchets jetés dans la bonne poubelle (l'indice 1 des tableaux correspondants), elles sont positives ou nulles et inférieures ou égales au poids total pour la même couleur
 Il y a les mêmes statistiques mais par type de déchets plutôt que par couleur
 
 On peut savoir si la statistique correspond à une rue ou la ville entière
