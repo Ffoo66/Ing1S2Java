@@ -32,7 +32,7 @@ On peut prendre l'id, la couleur et la capacité, mais on ne peut pas les change
 On peut obtenir et modifier l'adresse
 On peut prendre le poids par type de déchet
 On peut prendre le poids total de déchets
-On peut ajouter un poids à un certain type de déchet (on suppose que le capteur détecte le poids et le type de déchet)
+On peut ajouter un poids à un certain type de déchet (on suppose que le capteur détecte le poids et le type de déchet), si le type de déchet correspond à la couleur de la poubelle, le ménage utilisateur doit gagner des points, sinon, il doit en perdre
 La poubelle se vide à la collecte
 
 Une poubelle n'appartient qu'à un centre de tri, un centre de tri peut disposer d'un certain nombre statique de poubelles
