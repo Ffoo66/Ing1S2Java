@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class Menage {
 	private int idMenage;
@@ -7,6 +8,7 @@ public class Menage {
 	private int pointsFidelite;
 	private ArrayList<Depot> historiqueDepotsM;
 	private Adresse adresseMenage;
+	private ArrayList<BonReduction> listeBonsM;
 	
 	public int getIdMenage() {
 		return this.idMenage;
@@ -30,6 +32,10 @@ public class Menage {
 	
 	public Adresse getAdresse() {
 		return this.adresseMenage;
+	}
+	
+	public ArrayList<BonReduction> getListeBons(){
+		return this.listeBonsM;
 	}
 	
 	public void setNomCompte(String nNom) {
@@ -61,6 +67,26 @@ public class Menage {
 		System.out.println("Historique des dépôts de " + nomCompte + " :\n");
 		for (Depot depot : this.historiqueDepotsM) {
 			System.out.println("\n" + depot);
+		}
+	}
+	
+	public void echangerPts(int points, Commerce commerce) {
+		if (points <= this.pointsFidelite) {
+			double val = commerce.getReduction(points);
+			BonReduction nBon = new BonReduction(commerce.getListeBons().size(), val, commerce, this, LocalDate.now().plusMonths(1));
+			this.pointsFidelite -= points;
+			this.listeBonsM.add(nBon);
+			commerce.getListeBons().add(nBon);
+		}
+	}
+	
+	public boolean utiliserBon(BonReduction bon) {
+		if(bon.getBonUtilise()) {
+			return false;
+		}
+		else {
+			bon.utiliser();
+			return true;
 		}
 	}
 

@@ -1,4 +1,5 @@
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Depot {
 	private int idDepot;
@@ -7,7 +8,8 @@ public class Depot {
 	private boolean correct;
 	private int pointsGagnes;
 	private Menage utilDepot;
-	private Date dateDepot;
+	private LocalDate dateDepot;
+	private LocalTime horaireDepot;
 	
 	public int getIdDepot() {
 		return this.idDepot;
@@ -33,8 +35,12 @@ public class Depot {
 		return this.utilDepot;
 	}
 	
-	public Date getDate() {
+	public LocalDate getDate() {
 		return this.dateDepot;
+	}
+	
+	public LocalTime getHoraire() {
+		return this.horaireDepot;
 	}
 	
 	public void modifPoints() {
@@ -44,11 +50,12 @@ public class Depot {
 	public String toString() {
 		return "Dépôt{\nId dépôt : " + this.idDepot + "\nPoids dépôt : " + this.poidsDepot + "\nType dépôt : "
 			+ this.typeDepot + "\nCorrect : " + this.correct + "\nPoints gagnés : " + this.pointsGagnes
-			+ "\nUtilisateur dépôt: " + this.utilDepot + "\nDate dépôt : " + this.dateDepot + "\n}"
+			+ "\nUtilisateur dépôt: " + this.utilDepot + "\nDate dépôt : " + this.dateDepot + "\nHoraire dépôt : "
+			+ this.horaireDepot + "\n}"
 		;
 	}
 	
-	public Depot(int nId, int nPoids, String nType, boolean nCorrect, int nPts, Menage nUtil, Date nDate) {
+	public Depot(int nId, int nPoids, String nType, boolean nCorrect, int nPts, Menage nUtil, LocalDate nDate, LocalTime nHoraire) {
 		if (nId > 0 && nPoids > 0 && nType != "toutType") {
 			this.idDepot = nId;
 			this.poidsDepot = nPoids;
@@ -57,6 +64,7 @@ public class Depot {
 			this.pointsGagnes = nPts;
 			this.utilDepot = nUtil;
 			this.dateDepot = nDate;
+			this.horaireDepot = nHoraire;
 		}
 	}
 }
