@@ -1,7 +1,7 @@
 import java.time.*;
 import java.util.*;
 
-public class Main {
+public class MainTest {
 	public static void main (String args[]) {
 		
 		CentreTri ct = new CentreTri("Centre 1", new Adresse(30, "Rue Lemauvais", 95000, "Cergy"));
