@@ -2,7 +2,6 @@ import java.util.*;
 import java.time.*;
 
 public class CentreTri {
-	private static int compteCentre;
     private int idCentre;
     private String nomCentre;
     private Adresse adresseCentre;
@@ -11,7 +10,9 @@ public class CentreTri {
     private HashMap<UUID, Boolean> mapNotifPleine;
     private HashMap<UUID, Depot> historiqueDepot;
     private HashMap<UUID, ContratPartenariat> mapPartenaire;
-    private HashMap<String, Menage> mapMenage;
+    
+	private static HashMap<Integer, CentreTri> mapCentre = new HashMap<Integer, CentreTri>();
+	private static int compteCentre;
 
     // Getters & Setters
     
@@ -58,15 +59,15 @@ public class CentreTri {
     public ContratPartenariat getPartenaire(UUID idPartenaire) {
         return this.mapPartenaire.get(idPartenaire);
     }
-
-    public HashMap<String, Menage> getMapMenage() {
-        return this.mapMenage;
+    
+    public static HashMap<Integer, CentreTri> getMapCentre(){
+    	return mapCentre;
     }
-
-    public Menage getMenage(String nomMenage) {
-        return this.mapMenage.get(nomMenage);
+    
+    public static int getCompteCentre() {
+    	return compteCentre;
     }
-
+    
     public void setNomC(String nNomC) {
         this.nomCentre = nNomC;
     }
@@ -163,12 +164,12 @@ public class CentreTri {
     }
 
     public void inscrire(String nCompte, String nMDP, Adresse nAdresse) {
-        if (mapMenage.containsKey(nCompte)) {
+        if (Menage.getMapMenage().containsKey(nCompte)) {
             System.out.println("Identifiant déjà existant");
             return;
         }
     	Menage m = new Menage(nCompte, nMDP, nAdresse);
-        mapMenage.put(m.getNom(), m);
+        Menage.getMapMenage().put(m.getNom(), m);
     }
 
     // Constructeur
@@ -183,7 +184,7 @@ public class CentreTri {
 	        this.mapNotifPleine = new HashMap<UUID, Boolean>();
 	        this.historiqueDepot = new HashMap<UUID, Depot>();
 	        this.mapPartenaire = new HashMap<UUID, ContratPartenariat>();
-	        this.mapMenage = new HashMap<String, Menage>();
+	        mapCentre.put(this.idCentre, this);
     	}
     }
 }

@@ -8,6 +8,7 @@ public class Menage {
 	private HashMap<UUID, Depot> historiqueDepotsM;
 	private Adresse adresseMenage;
 	private HashMap<UUID, BonReduction> mapBonsM;
+	private static HashMap<String, Menage> mapMenage = new HashMap<String, Menage>();
 	
 	public String getNom() {
 		return this.nomCompte;
@@ -31,6 +32,10 @@ public class Menage {
 	
 	public HashMap<UUID, BonReduction> getMapBons(){
 		return this.mapBonsM;
+	}
+	
+	public static HashMap<String, Menage> getMapMenage(){
+		return mapMenage;
 	}
 	
 	public void setNomCompte(String nNom) {

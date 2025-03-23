@@ -99,10 +99,9 @@ public class Bac {
     }
     
     public Menage identifierMenage(String nNom, String nMDP) {
-    	Menage m = new Menage(nNom, nMDP, null);
-    	if (this.centreTri.getMapMenage().containsKey(nNom)) {
-    		if (this.centreTri.getMapMenage().get(nNom).getMDP().equals(nMDP)) {
-    			return this.centreTri.getMapMenage().get(nNom);
+    	if (Menage.getMapMenage().containsKey(nNom)) {
+    		if (Menage.getMapMenage().get(nNom).getMDP().equals(nMDP)) {
+    			return Menage.getMapMenage().get(nNom);
     		}
     		else {
     			System.out.println("Mot de passe incorrect");
