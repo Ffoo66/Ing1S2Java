@@ -91,6 +91,7 @@ public class Bac {
 	        	m, LocalDate.now(), LocalTime.now());
 	        }
 	        this.centreTri.getMapDepot().put(d.getIdDepot(), d);
+	        this.centreTri.majBac(this.idBac);
             return true;
         } else {
             System.out.println("Bac " + this.idBac + " plein !");

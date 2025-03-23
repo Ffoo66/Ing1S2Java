@@ -129,10 +129,6 @@ public class CentreTri {
         }
     }
 
-    public void ajoutDepot(Depot d) {
-        historiqueDepot.put(d.getIdDepot(), d);
-    }
-
     public ArrayList<Depot> getRes(Couleur col, Type t, LocalTime heureD, LocalTime heureF, LocalDate dateD, LocalDate dateF,
     Adresse a, ResCat cat) {
         ArrayList<Depot> resultat = new ArrayList<Depot>();
@@ -145,8 +141,10 @@ public class CentreTri {
         for (Depot d : historiqueDepot.values()) {
             couleurOK = (col == Couleur.toutCol || d.getCouleurDepot().equals(col));
             typeOK = (t == Type.toutType || d.getTypeDepot().equals(t));
-            heureOK = (!d.getHoraire().isBefore(heureD) || !d.getHoraire().isAfter(heureF));
-            dateOK = (dateD.isAfter(dateF) || (!d.getDate().isBefore(dateD) || !d.getDate().isAfter(dateF)));
+            heureOK = (!d.getHoraire().isBefore(heureD) && !d.getHoraire().isAfter(heureF)) ||
+            	((!d.getHoraire().isBefore(heureD) || !d.getHoraire().isAfter(heureF)) && heureD.isAfter(heureF))
+            ;
+            dateOK = (dateD.isAfter(dateF) || (!d.getDate().isBefore(dateD) && !d.getDate().isAfter(dateF)));
             rueOK = (a == null || d.getAdresseDepot().rueEquals(a));
             catOK = (cat == ResCat.total || d.getCorrect().equals(cat));
             if (couleurOK && typeOK && heureOK && dateOK && rueOK && catOK) {
@@ -158,8 +156,10 @@ public class CentreTri {
 
     public void collecter() {
         for (Bac b : mapBac.values()) {
-            b.vider();
-            mapNotifPleine.put(b.getIdBac(), false);
+        	if (b.getAdresseBac().getNum() <= 0) {
+	            b.vider();
+	            mapNotifPleine.put(b.getIdBac(), false);
+        	}
         }
     }
 

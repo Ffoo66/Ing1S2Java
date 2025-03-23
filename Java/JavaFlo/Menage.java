@@ -65,11 +65,13 @@ public class Menage {
 	
 	public void echangerPts(int points, Commerce commerce, String produit) {
 		if (points <= this.pointsFidelite) {
-			double val = commerce.getReduction(points, produit);
-			BonReduction nBon = new BonReduction(val, commerce, this, LocalDate.now().plusMonths(1));
-			this.pointsFidelite -= points;
-			this.mapBonsM.put(nBon.getIdBon(), nBon);
-			commerce.getMapBons().put(nBon.getIdBon(), nBon);
+			double val = commerce.getReduction(points, produit.toLowerCase());
+			if (val > 0) {
+				BonReduction nBon = new BonReduction(val, commerce, this, LocalDate.now().plusMonths(1));
+				this.pointsFidelite -= points;
+				this.mapBonsM.put(nBon.getIdBon(), nBon);
+				commerce.getMapBons().put(nBon.getIdBon(), nBon);
+			}
 		}
 	}
 	

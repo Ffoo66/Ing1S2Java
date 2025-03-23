@@ -78,6 +78,7 @@ public class Depot {
 			this.correct = nCorrect;
 			this.pointsGagnes = nPts;
 			this.utilDepot = nUtil;
+			this.utilDepot.addPoints(this.pointsGagnes);
 			this.dateDepot = nDate;
 			this.horaireDepot = nHoraire;
 		}

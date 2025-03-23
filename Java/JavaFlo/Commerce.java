@@ -71,7 +71,12 @@ public class Commerce {
 	}
 	
 	public double getReduction(int points, String produit) {
-		return points/this.produitsAff.get(produit);
+		if (this.produitsAff.containsKey(produit)) {
+			return Math.floor(100 * (points/1000.0) * this.produitsAff.get(produit)) / 100;
+		}
+		else {
+			return 0;
+		}
 	}
 	
 	public String toString() {
@@ -80,7 +85,7 @@ public class Commerce {
 		;
 	}
 
-	public Commerce(String nNom, Adresse nAdresse, LocalDate nDateDP, LocalDate nDateFP) {
+	public Commerce(String nNom, Adresse nAdresse) {
         UUID id = UUID.randomUUID();
         while (mapCommerce.containsKey(id)) {
             id = UUID.randomUUID();
