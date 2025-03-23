@@ -1,1 +1,121 @@
+README – Projet Java : Gestion intelligente du tri sélectif
 
+Table des matières
+
+À propos du projet
+Architecture et conception des classes
+Fonctionnalités principales
+Organisation et stockage des données
+Arborescence des packages
+Technologies utilisées
+Prise en main
+a. Prérequis
+b. Installation
+Utilisation
+a. Approche via classes de test
+b. Description de MainTest
+c. Exemples de cas d’usage
+Membres du groupe
+Chronologie
+1. À propos du projet
+
+Ce projet consiste à simuler un système intelligent de tri des déchets. Il vise à sensibiliser les usagers à bien trier leurs déchets à travers un système de récompense (points fidélité convertibles en bons de réduction).
+
+Le projet modélise différents acteurs du cycle de tri : centres de tri, bacs connectés, ménages, commerces partenaires, dépôts et statistiques de tri.
+
+2. Architecture et conception des classes
+
+Le projet suit une approche orientée objet, avec les principales classes suivantes :
+
+CentreTri : gère les bacs, les dépôts, les notifications et les statistiques
+Bac : unité de tri physique capable de vérifier le type de déchet, d’attribuer les points, et de se vider
+Depot : représente un dépôt de déchet, avec date, type, poids, utilisateur, etc.
+Menage : utilisateur inscrit au système, cumulant des points à chaque dépôt
+BonReduction : généré en échange de points, utilisable dans un commerce
+Commerce : commerce partenaire acceptant les bons de réduction
+ContratPartenariat : lie un centre de tri à un commerce pour une durée donnée
+Adresse : utilisée pour localiser les ménages, bacs et commerces
+Couleur, Type, ResCat : énumérations décrivant les couleurs de bac, types de déchet et résultats de dépôt
+La classe Poubelle a été abandonnée au profit d’une simplification directe via Bac.
+
+3. Fonctionnalités principales
+
+Inscription d’un ménage avec identifiant et mot de passe
+Dépôt de déchets avec contrôle du type selon la couleur du bac
+Attribution de points en cas de dépôt correct
+Remplissage progressif du bac jusqu’à atteindre sa capacité
+Génération d’une alerte lorsque le bac est plein
+Système de bons échangeables contre des réductions en commerce
+Suivi des contrats de partenariat avec durée de validité
+Requêtes statistiques selon date, heure, type, couleur, rue ou catégorie
+4. Organisation et stockage des données
+
+Les objets sont stockés via des structures HashMap pour assurer l’unicité et la rapidité d’accès
+Les identifiants de type UUID assurent l’unicité des bacs, bons et dépôts
+Les données utilisateurs (Menage) sont centralisées dans une HashMap<String, Menage>
+Les statistiques sont produites à partir de l’historique de dépôts
+5. Arborescence des packages
+
+Le projet est organisé comme suit :
+
+core : contient toutes les classes métiers (CentreTri, Bac, Depot, etc.)
+test : contient les classes de tests associées à chaque classe principale
+main : contient la classe MainTest, permettant de tester le bon fonctionnement global
+6. Technologies utilisées
+
+Java 21
+Compilation en ligne de commande ou via un IDE (Eclipse, IntelliJ)
+JDBC prévu pour la persistance des données dans une base MySQL (non inclus dans ce rendu)
+7. Prise en main
+
+a. Prérequis
+Java JDK 21
+Un IDE (IntelliJ, Eclipse) ou terminal avec javac
+Git pour cloner le dépôt
+b. Installation
+Cloner le dépôt :
+
+git clone https://github.com/nom-utilisateur/tri-selectif.git
+cd tri-selectif/Java/
+Compiler :
+
+javac main/MainTest.java
+Exécuter :
+
+java main.MainTest
+8. Utilisation
+
+a. Approche via classes de test
+Aucun menu interactif n’est requis. Tous les tests sont automatisés à partir de données simulées.
+Chaque classe principale (Menage, Depot, Bac, etc.) est testée via des appels directs.
+
+b. Description de MainTest
+La classe MainTest permet de :
+
+Créer des ménages et les connecter à un centre
+Créer et positionner des bacs
+Réaliser des dépôts corrects et incorrects
+Générer des statistiques sur les dépôts
+Échanger des points contre des bons de réduction
+Tester les contrats de partenariat avec les commerces
+c. Exemples de cas d’usage
+Un ménage fait un dépôt de plastique dans un bac jaune → points gagnés
+Un bac est rempli au-delà de sa capacité → notification de remplissage
+Un ménage échange ses points contre un bon → ajout du bon à son compte
+Un commerce crée un contrat avec un centre de tri → ajout dans la mapPartenaire
+Le centre utilise getRes() pour produire des statistiques sur une semaine
+9. Membres du groupe
+
+Mariam
+Shaïma
+Lucas
+Florian
+10. Chronologie
+
+03/03/2024 : Livraison du diagramme UML
+10/03/2024 : Implémentation des premières classes (Adresse, Menage, Depot)
+15/03/2024 : Intégration des bacs et du système de tri
+18/03/2024 : Abandon de la classe Poubelle au profit d’une simplification
+20/03/2024 : Ajout du système de bons de réduction et des contrats
+22/03/2024 : Finalisation des classes de test
+23/03/2024 : Écriture du README et préparation du rendu final
