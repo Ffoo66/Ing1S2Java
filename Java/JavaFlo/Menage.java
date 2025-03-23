@@ -76,7 +76,7 @@ public class Menage {
 	}
 	
 	public boolean utiliserBon(BonReduction bon) {
-		if(bon.getBonUtilise()) {
+		if(bon.getBonUtilise() || bon.getDateExp().isBefore(LocalDate.now())) {
 			return false;
 		}
 		else {
