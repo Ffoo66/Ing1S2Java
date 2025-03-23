@@ -10,7 +10,6 @@
 - [Prise en main](#prise-en-main)
   - [Prérequis](#prérequis)
   - [Installation](#installation)
-- [Utilisation](#utilisation)
   - [Structure des tests](#structure-des-tests)
 - [Membres du groupe](#membres-du-groupe)
 - [Chronologie du projet](#chronologie-du-projet)
@@ -77,15 +76,6 @@ Les adresses sont comparées par rue, ville et numéro pour permettre des regrou
 
 - Java JDK 17 ou supérieur
 - Un IDE Java (Eclipse, IntelliJ, VSCode, etc.)
-
-### Installation
-
-1. Cloner le dépôt :
-```bash
-git clone https://github.com/ton-projet/java-tri-selectif.git
-```
-2. Ouvrir dans votre IDE
-3. Lancer les classes de test dans le package dédié
 
 ---
 
