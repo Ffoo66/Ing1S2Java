@@ -139,7 +139,8 @@ Ce test centralise les appels aux autres classes pour vérifier le bon fonctionn
 
 ## Membres du groupe
 
-- Mariam  
+- Mariam
+- Yasmine   
 - Shaïma  
 - Lucas  
 - Vo Florian  
