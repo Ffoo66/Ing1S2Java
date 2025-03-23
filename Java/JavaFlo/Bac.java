@@ -121,9 +121,9 @@ public class Bac {
     
     
 	public String toString() {
-		return "Bac {\nId Bac : " + this.idBac + "\nAdresse Bac : " + this.adresseBac
-			+ "\nCentre de tri : " + this.centreTri + "\nCouleur : " + this.couleur + "\nCapacite : " + this.capacite
-			+ "\nPoids : " + this.contenu + "\n}"
+		return "Bac {\n\tId Bac : " + this.idBac + "\n\tAdresse Bac : " + this.adresseBac
+			+ "\n\tCentre de tri : " + this.centreTri.getIdCentre() + "\n\tCouleur : "
+			+ this.couleur + "\n\tCapacite : " + this.capacite + "\n\tPoids : " + this.contenu + "\n}\n"
 		;
 	}
 

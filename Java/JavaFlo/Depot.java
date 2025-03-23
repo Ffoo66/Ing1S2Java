@@ -58,10 +58,11 @@ public class Depot {
 	}
 	
 	public String toString() {
-		return "Dépôt{\nId dépôt : " + this.idDepot + "\nPoids dépôt : " + this.poidsDepot + "\nCouleur dépôt : "
-			+ this.colDepot + "\nType dépôt : " + this.typeDepot + "\nCorrect : " + this.correct + "\nAdresse dépôt : "
-			+ this.adresseDepot + "\nPoints gagnés : " + this.pointsGagnes + "\nUtilisateur dépôt: "
-			+ this.utilDepot + "\nDate dépôt : " + this.dateDepot + "\nHoraire dépôt : " + this.horaireDepot + "\n}"
+		return "Dépôt{\n\tId dépôt : " + this.idDepot + "\n\tPoids dépôt : " + this.poidsDepot + "\n\tCouleur dépôt : "
+			+ this.colDepot + "\n\tType dépôt : " + this.typeDepot + "\n\tCorrect : " + this.correct
+			+ "\n\tAdresse dépôt : " + this.adresseDepot + "\n\tPoints gagnés : " + this.pointsGagnes
+			+ "\n\tUtilisateur dépôt: " + this.utilDepot.getNom() + "\n\tDate dépôt : " + this.dateDepot
+			+ "\n\tHoraire dépôt : " + this.horaireDepot + "\n}\n"
 		;
 	}
 	

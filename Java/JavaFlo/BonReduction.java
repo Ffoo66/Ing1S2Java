@@ -38,9 +38,9 @@ public class BonReduction {
 	}
 
 	public String toString() {
-		return "BonReduction {\nId bon : " + this.idBon + "\nValeur : " + this.valeur + "\nBon utilisé : "
-			+ this.bonUtilise + "\nCommerce bon : " + this.commerceBon + "\nMénage bon : " + this.menageBon
-			+ "\nDate expiration : " + this.dateExpiration + "\n}"
+		return "BonReduction {\n\tId bon : " + this.idBon + "\n\tValeur : " + this.valeur + "\n\tBon utilisé : "
+			+ this.bonUtilise + "\n\tCommerce bon : " + this.commerceBon.getIdCommerce() + "\n\tMénage bon : "
+			+ this.menageBon.getNom() + "\n\tDate expiration : " + this.dateExpiration + "\n}\n"
 		;
 	}
 	

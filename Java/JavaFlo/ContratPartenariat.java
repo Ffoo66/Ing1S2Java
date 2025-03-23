@@ -61,9 +61,10 @@ public class ContratPartenariat {
 	}
 
 	public String toString() {
-		return "ContratPartenariat {nCentre partenaire : " + this.centrePartner + "\nCommerce partenaire : "
-			+ this.commercePartner + "\nEst partenaire : " + this.estPartenaire + "\nDate début partenariat : "
-			+ this.dateDebutPartner + "\nDate fin partenariat : " + this.dateFinPartner + "\n}"
+		return "ContratPartenariat {\n\tCentre partenaire : " + this.centrePartner.getIdCentre()
+			+ "\n\tCommerce partenaire : " + this.commercePartner.getIdCommerce() + "\n\tEst partenaire : "
+			+ this.estPartenaire + "\n\tDate début partenariat : " + this.dateDebutPartner
+			+ "\n\tDate fin partenariat : " + this.dateFinPartner + "\n}\n"
 		;
 	}
 

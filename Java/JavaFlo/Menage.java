@@ -94,9 +94,9 @@ public class Menage {
 	}
 
 	public String toString() {
-		return "Menage {\nNom compte : " + this.nomCompte + "\nMot de passe : "
-			+ this.motDePasse + "\nPoints fidélité : " + this.pointsFidelite + "\nHistorique dépôts : "
-			+ this.historiqueDepotsM + "\nAdresse ménage : " + this.adresseMenage + "\n}"
+		return "Menage {\n\tNom compte : " + this.nomCompte + "\n\tMot de passe : "
+			+ this.motDePasse + "\n\tPoints fidélité : " + this.pointsFidelite + "\n\tAdresse ménage : "
+			+ this.adresseMenage + "\n}\n"
 		;
 	}
 	

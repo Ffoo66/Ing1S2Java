@@ -158,7 +158,7 @@ public class CentreTri {
 
     public void collecter() {
         for (Bac b : mapBac.values()) {
-            b.vider(); // méthode à créer dans Poubelle
+            b.vider();
             mapNotifPleine.put(b.getIdBac(), false);
         }
     }
@@ -171,10 +171,14 @@ public class CentreTri {
     	Menage m = new Menage(nCompte, nMDP, nAdresse);
         Menage.getMapMenage().put(m.getNom(), m);
     }
-
-    // Constructeur
     
-    public CentreTri(String nomCentre, Adresse adresseCentre) {
+	public String toString() {
+		return "CentreTri {\n\tId centre : " + this.idCentre + "\n\tNom centre : " + this.nomCentre
+			+ "\n\tAdresse centre : " + this.adresseCentre + "\n}\n"
+		;
+	}
+
+	public CentreTri(String nomCentre, Adresse adresseCentre) {
     	if (nomCentre != "" && adresseCentre !=  null) {
 	        this.idCentre = compteCentre;
 	        compteCentre++;
