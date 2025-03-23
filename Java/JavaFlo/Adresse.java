@@ -1,4 +1,3 @@
-package model;
 public class Adresse {
 	private int numero;
 	private String nomRue;
