@@ -68,7 +68,7 @@ public class Adresse {
 
 	public String toString() {
 		return "Adresse {\n\t\tNumero : " + this.numero + "\n\t\tNom rue : " + this.nomRue + "\n\t\tCode postal : "
-			+ this.codePostal + "\n\t\tVille : " + this.ville + "\n\t\t}"
+			+ this.codePostal + "\n\t\tVille : " + this.ville + "\n\t}\n"
 		;
 	}
 	
