@@ -1,11 +1,11 @@
-import java.time.LocalDate;
+import java.time.*;
 import java.util.*;
 
 public class Commerce {
 	private UUID idCommerce;
 	private String nomCommerce;
 	private Adresse adresseCommerce;
-	private ArrayList<String> produitsAff;
+	private HashMap<String, Double> produitsAff;
 	private HashMap<UUID, BonReduction>mapBonsC;
 	private HashMap<Integer, ContratPartenariat> mapPartenariats;
 	
@@ -21,8 +21,12 @@ public class Commerce {
 		return this.adresseCommerce;
 	}
 	
-	public ArrayList<String> getProduitsAff(){
+	public HashMap<String, Double> getProduitsAff(){
 		return this.produitsAff;
+	}
+	
+	public double getReducProduit(String produit) {
+		return this.produitsAff.get(produit);
 	}
 	
 	public HashMap<UUID, BonReduction> getMapBons(){
@@ -39,23 +43,12 @@ public class Commerce {
 		}
 	}
 	
-	public void ajoutProduitAff(String nProduit) {
-		byte i = 0;
-		for (i = 0; i < this.produitsAff.size(); i++) {
-			if (nProduit.toLowerCase().equals(this.produitsAff.get(i))) {
-				return;
-			}
-		}
-		this.produitsAff.add(nProduit.toLowerCase());
+	public void ajoutProduitAff(String nProduit, double coeff) {
+		this.produitsAff.put(nProduit.toLowerCase(), coeff);
 	}
 	
 	public void supProduitAff(String nProduit) {
-		byte i = 0;
-		for (i = 0; i < this.produitsAff.size(); i++) {
-			if (nProduit.toLowerCase().equals(this.produitsAff.get(i))) {
-				this.produitsAff.remove(i);
-			}
-		}
+		this.produitsAff.remove(nProduit);
 	}
 	
 	public void ajoutBon(BonReduction nBon) {
@@ -72,8 +65,8 @@ public class Commerce {
 		nCentre.getMapPartenaire().put(this.idCommerce , nContrat);
 	}
 	
-	public double getReduction(int points) {
-		return points/10.0;
+	public double getReduction(int points, String produit) {
+		return points/this.produitsAff.get(produit);
 	}
 	
 	public String toString() {
@@ -87,7 +80,7 @@ public class Commerce {
 		this.idCommerce = nId;
 		this.nomCommerce = nNom;
 		this.adresseCommerce = nAdresse;
-		this.produitsAff = new ArrayList<String>();
+		this.produitsAff = new HashMap<String, Double>();
 		this.mapBonsC = new HashMap<UUID, BonReduction>();
 		this.mapPartenariats = new HashMap<Integer, ContratPartenariat>();
 	}

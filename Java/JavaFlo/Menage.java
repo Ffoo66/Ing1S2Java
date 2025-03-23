@@ -1,5 +1,5 @@
+import java.time.*;
 import java.util.*;
-import java.time.LocalDate;
 
 public class Menage {
 	private String nomCompte;
@@ -63,9 +63,9 @@ public class Menage {
 		this.adresseMenage = nAdresse;
 	}
 	
-	public void echangerPts(int points, Commerce commerce) {
+	public void echangerPts(int points, Commerce commerce, String produit) {
 		if (points <= this.pointsFidelite) {
-			double val = commerce.getReduction(points);
+			double val = commerce.getReduction(points, produit);
 			BonReduction nBon = new BonReduction(val, commerce, this, LocalDate.now().plusMonths(1));
 			this.pointsFidelite -= points;
 			this.mapBonsM.put(nBon.getIdBon(), nBon);

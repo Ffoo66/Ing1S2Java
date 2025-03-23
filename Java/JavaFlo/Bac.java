@@ -1,5 +1,5 @@
 import java.time.*;
-import java.util.UUID;
+import java.util.*;
 
 public class Bac {
     private UUID idBac;
@@ -7,7 +7,7 @@ public class Bac {
     private CentreTri centreTri;
     private Couleur couleur;
     private int capacite;			// en g
-    private int contenu;				// poids actuel (en g)
+    private int contenu;			// poids actuel (en g)
 
     // les getters et les setters
     public UUID getIdBac() {
