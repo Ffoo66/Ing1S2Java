@@ -17,13 +17,10 @@
 - [Membres du groupe](#membres-du-groupe)
 - [Chronologie du projet](#chronologie-du-projet)
 
----
-
 ## À propos du projet
 
-Ce projet Java a pour objectif de simuler un système intelligent de tri sélectif en modélisant un centre de tri, des ménages, des commerces partenaires et des bacs de tri. Les ménages reçoivent des points de fidélité en déposant correctement leurs déchets, points qu’ils peuvent ensuite échanger contre des bons de réduction dans les commerces partenaires.
-
----
+Ce projet Java a pour objectif de simuler un système intelligent de tri sélectif en modélisant un centre de tri, des ménages, des commerces partenaires et des bacs de tri.  
+Les ménages reçoivent des points de fidélité en déposant correctement leurs déchets, points qu’ils peuvent ensuite échanger contre des bons de réduction dans les commerces partenaires.
 
 ## Architecture et conception des classes
 
@@ -39,8 +36,6 @@ Le projet repose sur une modélisation orientée objet avec les classes suivante
 - `Adresse` : localisation d’un bac, commerce ou ménage
 - `Couleur`, `Type`, `ResCat` : énumérations métiers
 
----
-
 ## Fonctionnalités principales
 
 - Attribution de points selon la correspondance entre type de déchet et couleur du bac
@@ -50,66 +45,11 @@ Le projet repose sur une modélisation orientée objet avec les classes suivante
 - Contrats temporaires entre commerce et centre de tri
 - Génération de statistiques via des filtres multiples
 
----
-
 ## Organisation et stockage des données
 
 - `HashMap` pour stocker et retrouver efficacement les entités
 - Identifiants uniques (`UUID`) pour les bacs, dépôts, bons, etc.
 - Données centralisées dans les maps statiques (comme `Menage.getMapMenage()`)
 
----
-
 ## Arborescence des packages
 
-
----
-
-## Technologies utilisées
-
-- Java 21
-- Compilation via terminal ou IDE (Eclipse, IntelliJ)
-- Prévu : JDBC pour la sauvegarde en base MySQL (non inclus dans ce rendu)
-
----
-
-## Prise en main
-
-### Prérequis
-
-- Java JDK 21
-- Un IDE (Eclipse, IntelliJ) ou terminal
-- Git
-
-### Installation
-
-```bash
-git clone https://github.com/votre-utilisateur/tri-selectif.git
-cd tri-selectif/src
-javac main/MainTest.java
-
-Utilisation
-
-Classes de test
-Chaque classe métier possède sa classe de test correspondante. Aucune interface n’est codée : les tests sont lancés directement dans le code.
-
-Exécution de MainTest
-java main.MainTest
-
-Membres du groupe
-
-Mariam
-Shaïma
-Yasmine
-Lucas
-Florian
-
-Chronologie du projet
-
-03/03/2024 : Livraison du diagramme UML
-10/03/2024 : Implémentation des classes de base
-15/03/2024 : Intégration du système de dépôt et points
-18/03/2024 : Abandon de la classe Poubelle, simplification via Bac
-20/03/2024 : Ajout des contrats et des commerces
-22/03/2024 : Finalisation des classes de test
-23/03/2024 : Écriture du README.md
