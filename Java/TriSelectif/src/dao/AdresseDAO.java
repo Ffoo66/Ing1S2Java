@@ -41,4 +41,20 @@ public class AdresseDAO {
         }
         return null;
     }
+    
+    public void delete(int adresseId) {
+        String sql = "DELETE FROM Adresse WHERE id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, adresseId);  // Spécifie l'ID de l'adresse à supprimer
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Adresse supprimée avec succès.");
+            } else {
+                System.out.println("Aucune adresse trouvée avec cet ID.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

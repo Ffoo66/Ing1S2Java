@@ -59,4 +59,20 @@ public class BacDAO {
         }
         return null;  // Si le Bac n'est pas trouvé
     }
+    
+    public void delete(UUID idBac) {
+        String sql = "DELETE FROM Bac WHERE idBac = ?";  // Suppression du Bac par son ID
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, idBac.toString());  // Spécifie l'ID du Bac à supprimer
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Bac supprimé avec succès.");
+            } else {
+                System.out.println("Aucun Bac trouvé avec cet ID.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

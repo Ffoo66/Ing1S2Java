@@ -65,5 +65,21 @@ public class BonReductionDAO {
         }
         return null; // Si le bon de réduction n'est pas trouvé
     }
+    
+    public void delete(UUID idBon) {
+        String sql = "DELETE FROM BonReduction WHERE idBon = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, idBon.toString());  // Spécifie l'ID du Bon de réduction à supprimer
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Bon de réduction supprimé avec succès.");
+            } else {
+                System.out.println("Aucun Bon de réduction trouvé avec cet ID.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

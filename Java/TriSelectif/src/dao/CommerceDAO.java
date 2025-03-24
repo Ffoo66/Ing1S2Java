@@ -33,7 +33,8 @@ public class CommerceDAO {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 // Créer et retourner un objet Commerce avec les données récupérées
-                return new Commerce(rs.getString("nomCommerce"), null);
+                return new Commerce(rs.getString("nomCommerce"), 
+                                    null);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -61,4 +62,20 @@ public class CommerceDAO {
         }
         return adresse;
     }
+    
+    public void delete(UUID idCommerce) {
+        String sql = "DELETE FROM Commerce WHERE idCommerce = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, idCommerce.toString());  // Spécifie l'ID du Commerce à supprimer
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Commerce supprimé avec succès.");
+            } else {
+                System.out.println("Aucun Commerce trouvé avec cet ID.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

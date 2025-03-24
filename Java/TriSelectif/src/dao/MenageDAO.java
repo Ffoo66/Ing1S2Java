@@ -52,16 +52,20 @@ public class MenageDAO {
         }
     }
 
- // Exemple de suppression du Menage dans MenageDAO
     public void delete(String nomCompte) {
         String sql = "DELETE FROM Menage WHERE nomCompte = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, nomCompte);
-            stmt.executeUpdate();
-            System.out.println("Ménage supprimé.");
+            stmt.setString(1, nomCompte);  // Utilise le nom du compte pour référencer le ménage
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Ménage supprimé avec succès.");
+            } else {
+                System.out.println("Aucun Ménage trouvé avec ce nom de compte.");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
 }

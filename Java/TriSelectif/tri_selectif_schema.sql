@@ -6,20 +6,22 @@ USE tri_selectif;
 -- ============================
 CREATE TABLE Adresse (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    numero INT,
-    nomRue VARCHAR(100),
-    codePostal INT,
-    ville VARCHAR(100)
+    numero INT NOT NULL,
+    nomRue VARCHAR(100) NOT NULL,
+    codePostal INT NOT NULL CHECK (codePostal > 1000 AND codePostal < 100000),
+    ville VARCHAR(100) NOT NULL,
+    UNIQUE (numero, nomRue, codePostal, ville)  -- Empêche la duplication d'adresses exactes
 );
 
 -- ============================
 -- TABLE Centre de tri
 -- ============================
 CREATE TABLE CentreTri (
-    idCentre INT AUTO_INCREMENT PRIMARY KEY,  -- Ajout de AUTO_INCREMENT à idCentre
-    nomCentre VARCHAR(100),
-    adresse_id INT,
-    FOREIGN KEY (adresse_id) REFERENCES Adresse(id)
+    idCentre INT AUTO_INCREMENT PRIMARY KEY,
+    nomCentre VARCHAR(100) NOT NULL,
+    adresse_id INT NOT NULL,
+    FOREIGN KEY (adresse_id) REFERENCES Adresse(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    UNIQUE (nomCentre)  -- Assure qu'il n'y a pas de centre de tri avec le même nom
 );
 
 -- ============================
@@ -27,13 +29,13 @@ CREATE TABLE CentreTri (
 -- ============================
 CREATE TABLE Bac (
     idBac CHAR(36) PRIMARY KEY,
-    couleur ENUM('vert', 'jaune', 'bleu', 'gris', 'toutCol'),
-    capacite INT,
-    contenu INT,
-    centre_id INT,
-    adresse_id INT,
-    FOREIGN KEY (centre_id) REFERENCES CentreTri(idCentre),
-    FOREIGN KEY (adresse_id) REFERENCES Adresse(id)
+    couleur ENUM('vert', 'jaune', 'bleu', 'gris', 'toutCol') NOT NULL,
+    capacite INT NOT NULL CHECK (capacite > 0),  -- Vérifie que la capacité est positive
+    contenu INT NOT NULL CHECK (contenu >= 0 AND contenu <= capacite),  -- Vérifie que le contenu est positif ou égal à 0
+    centre_id INT NOT NULL,
+    adresse_id INT NOT NULL,
+    FOREIGN KEY (centre_id) REFERENCES CentreTri(idCentre) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (adresse_id) REFERENCES Adresse(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- ============================
@@ -41,10 +43,10 @@ CREATE TABLE Bac (
 -- ============================
 CREATE TABLE Menage (
     nomCompte VARCHAR(50) PRIMARY KEY,
-    motDePasse VARCHAR(100),
-    pointsFidelite INT,
-    adresse_id INT,
-    FOREIGN KEY (adresse_id) REFERENCES Adresse(id)
+    motDePasse VARCHAR(100) NOT NULL,
+    pointsFidelite INT NOT NULL DEFAULT 0,  -- Points de fidélité, initialisés à 0 par défaut
+    adresse_id INT NOT NULL,
+    FOREIGN KEY (adresse_id) REFERENCES Adresse(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- ============================
@@ -52,23 +54,24 @@ CREATE TABLE Menage (
 -- ============================
 CREATE TABLE Commerce (
     idCommerce CHAR(36) PRIMARY KEY,
-    nomCommerce VARCHAR(100),
-    adresse_id INT,
-    FOREIGN KEY (adresse_id) REFERENCES Adresse(id)
+    nomCommerce VARCHAR(100) NOT NULL,
+    adresse_id INT NOT NULL,
+    FOREIGN KEY (adresse_id) REFERENCES Adresse(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    UNIQUE (nomCommerce)  -- Assure qu'il n'y a pas de commerce avec le même nom
 );
 
 -- ============================
 -- TABLE ContratPartenariat
 -- ============================
 CREATE TABLE ContratPartenariat (
-    idCentreP INT,
-    idCommerceP CHAR(36),
-    estPartenaire BOOLEAN,
-    dateDebut DATE,
-    dateFin DATE,
+    idCentreP INT NOT NULL,
+    idCommerceP CHAR(36) NOT NULL,
+    estPartenaire BOOLEAN NOT NULL,
+    dateDebut DATE NOT NULL,
+    dateFin DATE NOT NULL,
     PRIMARY KEY (idCentreP, idCommerceP),
-    FOREIGN KEY (idCentreP) REFERENCES CentreTri(idCentre),
-    FOREIGN KEY (idCommerceP) REFERENCES Commerce(idCommerce)
+    FOREIGN KEY (idCentreP) REFERENCES CentreTri(idCentre) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (idCommerceP) REFERENCES Commerce(idCommerce) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- ============================
@@ -76,13 +79,13 @@ CREATE TABLE ContratPartenariat (
 -- ============================
 CREATE TABLE BonReduction (
     idBon CHAR(36) PRIMARY KEY,
-    valeur DOUBLE,
-    bonUtilise BOOLEAN,
-    commerce_id CHAR(36),
-    menage_id VARCHAR(50),
-    dateExpiration DATE,
-    FOREIGN KEY (commerce_id) REFERENCES Commerce(idCommerce),
-    FOREIGN KEY (menage_id) REFERENCES Menage(nomCompte)
+    valeur DOUBLE NOT NULL CHECK (valeur > 0),  -- Vérifie que la valeur du bon est positive
+    bonUtilise BOOLEAN NOT NULL DEFAULT false,  -- Initialisation à false
+    commerce_id CHAR(36) NOT NULL,
+    menage_id VARCHAR(50) NOT NULL,
+    dateExpiration DATE NOT NULL,
+    FOREIGN KEY (commerce_id) REFERENCES Commerce(idCommerce) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (menage_id) REFERENCES Menage(nomCompte) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- ============================
@@ -90,16 +93,16 @@ CREATE TABLE BonReduction (
 -- ============================
 CREATE TABLE Depot (
     idDepot CHAR(36) PRIMARY KEY,
-    poidsDepot INT,
-    couleur ENUM('vert', 'jaune', 'bleu', 'gris', 'toutCol'),
-    typeDechet ENUM('verre', 'carton', 'plastique', 'metal', 'papier', 'autre', 'toutType'),
-    resultat ENUM('correct', 'incorrect', 'total'),
-    pointsGagnes INT,
-    dateDepot DATE,
-    heureDepot TIME,
-    adresse_id INT,
-    menage_id VARCHAR(50),
-    FOREIGN KEY (adresse_id) REFERENCES Adresse(id) ON DELETE CASCADE,
-    FOREIGN KEY (menage_id) REFERENCES Menage(nomCompte) ON DELETE CASCADE
+    poidsDepot INT NOT NULL CHECK (poidsDepot > 0),  -- Vérifie que le poids est positif ou nul
+    couleur ENUM('vert', 'jaune', 'bleu', 'gris', 'toutCol') NOT NULL,
+    typeDechet ENUM('verre', 'carton', 'plastique', 'metal', 'papier', 'autre', 'toutType') NOT NULL,
+    resultat ENUM('correct', 'incorrect', 'total') NOT NULL,
+    pointsGagnes INT NOT NULL DEFAULT 0,  -- Points gagnés initialisés à 0 par défaut
+    dateDepot DATE NOT NULL,
+    heureDepot TIME NOT NULL,
+    adresse_id INT NOT NULL,
+    menage_id VARCHAR(50) NOT NULL,
+    FOREIGN KEY (adresse_id) REFERENCES Adresse(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (menage_id) REFERENCES Menage(nomCompte) ON DELETE CASCADE ON UPDATE CASCADE
 );
 

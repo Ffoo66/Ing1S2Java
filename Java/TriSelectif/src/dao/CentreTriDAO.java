@@ -49,5 +49,21 @@ public class CentreTriDAO {
         }
         return null;  // Si pas trouvé
     }
+    
+    public void delete(int idCentre) {
+        String sql = "DELETE FROM CentreTri WHERE idCentre = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idCentre);  // Spécifie l'ID du CentreTri à supprimer
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Centre de tri supprimé avec succès.");
+            } else {
+                System.out.println("Aucun Centre de tri trouvé avec cet ID.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

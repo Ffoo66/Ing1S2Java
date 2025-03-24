@@ -26,7 +26,7 @@ public class ContratPartenariatDAO {
         }
     }
     
- // Méthode pour récupérer un ContratPartenariat par ID du Commerce et ID du Centre
+    // Méthode pour récupérer un ContratPartenariat par ID du Commerce et ID du Centre
     public ContratPartenariat find(UUID idCommerce, int idCentre) {
         String sql = "SELECT * FROM ContratPartenariat WHERE idCommerceP = ? AND idCentreP = ?";  // Recherche par idCommerceP et idCentreP
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -62,4 +62,21 @@ public class ContratPartenariatDAO {
         }
         return null;  // Si pas trouvé
     }
+    
+    public void delete(UUID idCommerce, int idCentre) {
+        String sql = "DELETE FROM ContratPartenariat WHERE idCommerceP = ? AND idCentreP = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, idCommerce.toString());  // Spécifie l'ID du Commerce (UUID)
+            stmt.setInt(2, idCentre);  // Spécifie l'ID du Centre (int)
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Contrat de partenariat supprimé avec succès.");
+            } else {
+                System.out.println("Aucun Contrat de partenariat trouvé avec ces identifiants.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

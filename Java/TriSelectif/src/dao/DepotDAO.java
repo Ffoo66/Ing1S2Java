@@ -54,7 +54,6 @@ public class DepotDAO {
         return null; // Si le dépôt n'est pas trouvé
     }
     
- // Exemple de suppression dans DepotDAO
     public void deleteByMenage(String menageNomCompte) {
         String sql = "DELETE FROM Depot WHERE menage_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -65,5 +64,21 @@ public class DepotDAO {
             e.printStackTrace();
         }
     }
+    
+    public void delete(UUID idDepot) {
+        String sql = "DELETE FROM Depot WHERE idDepot = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, idDepot.toString());  // Spécifie l'ID du Depot (UUID)
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Dépôt supprimé avec succès.");
+            } else {
+                System.out.println("Aucun Dépôt trouvé avec cet ID.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
