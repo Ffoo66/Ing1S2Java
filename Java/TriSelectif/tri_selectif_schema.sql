@@ -31,7 +31,8 @@ CREATE TABLE Bac (
     idBac CHAR(36) PRIMARY KEY,
     couleur ENUM('vert', 'jaune', 'bleu', 'gris', 'toutCol') NOT NULL,
     capacite INT NOT NULL CHECK (capacite > 0),  -- Vérifie que la capacité est positive
-    contenu INT NOT NULL CHECK (contenu >= 0 AND contenu <= capacite),  -- Vérifie que le contenu est positif ou égal à 0
+    contenu INT NOT NULL,
+    CHECK (contenu >= 0 AND contenu <= capacite),  -- Vérifie que le contenu est positif ou égal à 0
     centre_id INT NOT NULL,
     adresse_id INT NOT NULL,
     FOREIGN KEY (centre_id) REFERENCES CentreTri(idCentre) ON DELETE CASCADE ON UPDATE CASCADE,
