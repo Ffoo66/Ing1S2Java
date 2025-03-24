@@ -7,13 +7,12 @@ import java.util.UUID;
 public class DeleteTestDAO {
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/tri_selectif";
-        String user = "root"; // À adapter
-        String password = "cytech0001"; // À adapter
+        String user = "root";				// À adapter
+        String password = "cytech0001";		// À adapter
 
         try (Connection conn = DriverManager.getConnection(url, user, password)) {
-            System.out.println("Connexion réussie!");
+            System.out.println("Connexion réussie !");
 
-            // Création des DAO
             MenageDAO menageDAO = new MenageDAO(conn);
             DepotDAO depotDAO = new DepotDAO(conn);
             CommerceDAO commerceDAO = new CommerceDAO(conn);
@@ -21,60 +20,48 @@ public class DeleteTestDAO {
             BacDAO bacDAO = new BacDAO(conn);
             CentreTriDAO centreTriDAO = new CentreTriDAO(conn);
             AdresseDAO adresseDAO = new AdresseDAO(conn);
-
+            
+            
             // Utilisation des identifiants générés dans InsertTestData
-            // Adresse
-            int adresseId = 1;  // Correspond à l'ID d'adresse généré dans InsertTestData
-
-            // Centre de tri
-            int idCentre = 1;  // ID de CentreTri dans InsertTestData
-
-            // Bac
-            UUID bacId = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");  // ID généré dans InsertTestData
-
-            // Ménage
-            String nomCompte = "familleDupont";  // Nom de compte du Ménage dans InsertTestData
-
-            // Commerce
-            UUID commerceId = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");  // ID généré dans InsertTestData
-
-            // ContratPartenariat
-            // ContratPartenariat utilise les ids du Commerce et du CentreTri
+            int adresseId = 1;
+            
+            int idCentre = 1;
+            
+            UUID bacId = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
+            
+            String nomCompte = "familleDupont";
+            
+            UUID commerceId = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
+            
             UUID idContratCommerce = commerceId;
             int idContratCentre = idCentre;
 
-            // Dépôt
-            UUID idDepot = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");  // ID généré dans InsertTestData
+            UUID idDepot = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
+            
+            
+            // Suppression
+            System.out.println("\nTest de suppression de Ménage...");
+            menageDAO.delete(nomCompte);
 
-            // Suppression du Ménage
-            System.out.println("\nTest de suppression du Ménage...");
-            menageDAO.delete(nomCompte);  // Appel de la méthode delete() pour le Ménage
+            System.out.println("\nTest de suppression de Bac...");
+            bacDAO.delete(bacId);
+            
+            System.out.println("\nTest de suppression de Depot...");
+            depotDAO.delete(idDepot);
 
-            // Suppression du Bac
-            System.out.println("\nTest de suppression du Bac...");
-            bacDAO.delete(bacId);  // Appel de la méthode delete() pour le Bac
+            System.out.println("\nTest de suppression de Commerce...");
+            commerceDAO.delete(commerceId);
 
-            // Suppression du Depot
-            System.out.println("\nTest de suppression du Depot...");
-            depotDAO.delete(idDepot);  // Appel de la méthode delete() pour le Depot
+            System.out.println("\nTest de suppression de ContratPartenariat...");
+            contratPartenariatDAO.delete(idContratCommerce, idContratCentre);
+            
+            System.out.println("\nTest de suppression de CentreTri...");
+            centreTriDAO.delete(idCentre);
 
-            // Suppression du Commerce
-            System.out.println("\nTest de suppression du Commerce...");
-            commerceDAO.delete(commerceId);  // Appel de la méthode delete() pour le Commerce
-
-            // Suppression du ContratPartenariat
-            System.out.println("\nTest de suppression du ContratPartenariat...");
-            contratPartenariatDAO.delete(idContratCommerce, idContratCentre);  // Appel de la méthode delete() pour le ContratPartenariat
-
-            // Suppression du CentreTri
-            System.out.println("\nTest de suppression du CentreTri...");
-            centreTriDAO.delete(idCentre);  // Appel de la méthode delete() pour le CentreTri
-
-            // Suppression de l'Adresse
-            System.out.println("\nTest de suppression de l'Adresse...");
-            adresseDAO.delete(adresseId);  // Appel de la méthode delete() pour l'Adresse
-
-        } catch (SQLException e) {
+            System.out.println("\nTest de suppression de Adresse...");
+            adresseDAO.delete(adresseId);
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }

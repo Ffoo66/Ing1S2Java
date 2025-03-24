@@ -10,7 +10,6 @@ public class Bac {
     private int capacite;			// en g
     private int contenu;			// poids actuel (en g)
 
-    // les getters et les setters
     public UUID getIdBac() {
     	return this.idBac;
     }

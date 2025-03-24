@@ -1,9 +1,6 @@
 package dao;
-
 import model.Commerce;
-import model.Adresse;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.UUID;
 
 public class CommerceDAO {
@@ -26,47 +23,25 @@ public class CommerceDAO {
         }
     }
 
-    public Commerce find(String nomCommerce) {
-        String sql = "SELECT * FROM Commerce WHERE nomCommerce = ?";
+    public Commerce find(UUID idCommerce) {
+        String sql = "SELECT * FROM Commerce WHERE idCommerce = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, nomCommerce); // Utiliser nomCommerce pour rechercher
+            stmt.setString(1, idCommerce.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                // Créer et retourner un objet Commerce avec les données récupérées
-                return new Commerce(rs.getString("nomCommerce"), 
-                                    null);
+                return new Commerce(rs.getString("nomCommerce"), null);
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
-        return null; // Si le commerce n'est pas trouvé
-    }
-
-    // Méthode pour récupérer une adresse par son id
-    private Adresse getAdresseById(int adresseId) {
-        Adresse adresse = null;
-        String sql = "SELECT * FROM Adresse WHERE id = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, adresseId);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                adresse = new Adresse(
-                    rs.getInt("numero"),
-                    rs.getString("nomRue"),
-                    rs.getInt("codePostal"),
-                    rs.getString("ville")
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return adresse;
+        return null;
     }
     
     public void delete(UUID idCommerce) {
         String sql = "DELETE FROM Commerce WHERE idCommerce = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, idCommerce.toString());  // Spécifie l'ID du Commerce à supprimer
+            stmt.setString(1, idCommerce.toString());
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Commerce supprimé avec succès.");
@@ -77,5 +52,4 @@ public class CommerceDAO {
             e.printStackTrace();
         }
     }
-
 }

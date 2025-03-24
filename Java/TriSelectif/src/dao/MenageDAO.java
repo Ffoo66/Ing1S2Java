@@ -18,7 +18,8 @@ public class MenageDAO {
             stmt.setInt(4, adresseId);
             stmt.executeUpdate();
             System.out.println("Ménage ajouté avec succès.");
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -30,11 +31,10 @@ public class MenageDAO {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 String mdp = rs.getString("motDePasse");
-                int points = rs.getInt("pointsFidelite");
-                // Ici on retourne juste un objet partiel sans adresse
                 return new Menage(nomCompte, mdp, null);
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -47,7 +47,8 @@ public class MenageDAO {
             stmt.setString(2, nomCompte);
             stmt.executeUpdate();
             System.out.println("Points mis à jour.");
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -55,17 +56,17 @@ public class MenageDAO {
     public void delete(String nomCompte) {
         String sql = "DELETE FROM Menage WHERE nomCompte = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, nomCompte);  // Utilise le nom du compte pour référencer le ménage
+            stmt.setString(1, nomCompte);
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Ménage supprimé avec succès.");
-            } else {
+            }
+            else {
                 System.out.println("Aucun Ménage trouvé avec ce nom de compte.");
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-
 }

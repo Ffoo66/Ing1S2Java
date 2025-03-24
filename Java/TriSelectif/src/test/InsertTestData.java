@@ -6,8 +6,8 @@ public class InsertTestData {
 
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/tri_selectif";
-        String user = "root"; // À adapter
-        String password = "cytech0001"; // À adapter
+        String user = "root";				// À adapter
+        String password = "cytech0001";		// À adapter
 
         try (Connection conn = DriverManager.getConnection(url, user, password)) {
             System.out.println("Connexion réussie !");
@@ -101,7 +101,8 @@ public class InsertTestData {
             depotStmt.executeUpdate();
 
             System.out.println("Données insérées avec succès !");
-        } catch (SQLException e) {
+        } 
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }

@@ -1,5 +1,4 @@
 package dao;
-
 import model.*;
 import java.sql.*;
 import java.time.LocalDate;
@@ -14,72 +13,62 @@ public class BonReductionDAO {
 
     public void create(BonReduction b) throws SQLException {
         if (b.getIdBon() == null) {
-            b.setIdBon(UUID.randomUUID());  // Générer un UUID si l'ID est null
+            b.setIdBon(UUID.randomUUID());
         }
-
-        // Vérifie que Commerce n'est pas null
         if (b.getCommerceBon() == null) {
             throw new SQLException("Commerce est null, impossible de créer le bon de réduction");
         }
-
         String sql = "INSERT INTO BonReduction (idBon, valeur, bonUtilise, commerce_id, menage_id, dateExpiration) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, b.getIdBon().toString());  // Utilisation de getIdBon().toString() pour convertir le UUID en String
+            stmt.setString(1, b.getIdBon().toString());
             stmt.setDouble(2, b.getValeur());
             stmt.setBoolean(3, b.getBonUtilise());
-            stmt.setString(4, b.getCommerceBon().getIdCommerce().toString());  // Commerce ID
-            stmt.setString(5, b.getMenageBon().getNom());  // Menage username
-            stmt.setDate(6, Date.valueOf(b.getDateExp()));  // Date d'expiration
+            stmt.setString(4, b.getCommerceBon().getIdCommerce().toString());
+            stmt.setString(5, b.getMenageBon().getNom());
+            stmt.setDate(6, Date.valueOf(b.getDateExp()));
             stmt.executeUpdate();
             System.out.println("Bon de réduction ajouté.");
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-    // Méthode pour récupérer un BonReduction par son ID
+    
     public BonReduction find(UUID idBon) {
         String sql = "SELECT * FROM BonReduction WHERE idBon = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, idBon.toString());  // Utiliser idBon pour rechercher
+            stmt.setString(1, idBon.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                // Créer les objets nécessaires
-                UUID idCommerce = UUID.fromString(rs.getString("commerce_id"));
-                UUID idMenage = UUID.fromString(rs.getString("menage_id"));
-                String nomCommerce = rs.getString("nomCommerce"); // Exemple d'alias pour nom du commerce
-                String nomMenage = rs.getString("nomCompte"); // Exemple d'alias pour nom du ménage
+                String nomCommerce = rs.getString("nomCommerce");
+                String nomMenage = rs.getString("nomCompte");
                 double valeur = rs.getDouble("valeur");
-                boolean bonUtilise = rs.getBoolean("bonUtilise");
                 LocalDate dateExpiration = rs.getDate("dateExpiration").toLocalDate();
-
-                // Récupérer Commerce et Menage via leurs ID
-                Commerce commerce = new Commerce(nomCommerce, null); // Exemple d'initialisation
-                Menage menage = new Menage(nomMenage, null, null);  // Exemple d'initialisation
-
-                // Créer et retourner le BonReduction avec toutes les informations
+                Commerce commerce = new Commerce(nomCommerce, null);
+                Menage menage = new Menage(nomMenage, null, null);
                 return new BonReduction(valeur, commerce, menage, dateExpiration);
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
-        return null; // Si le bon de réduction n'est pas trouvé
+        return null;
     }
     
     public void delete(UUID idBon) {
         String sql = "DELETE FROM BonReduction WHERE idBon = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, idBon.toString());  // Spécifie l'ID du Bon de réduction à supprimer
+            stmt.setString(1, idBon.toString());
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Bon de réduction supprimé avec succès.");
-            } else {
+            }
+            else {
                 System.out.println("Aucun Bon de réduction trouvé avec cet ID.");
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-
 }

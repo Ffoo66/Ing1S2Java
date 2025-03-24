@@ -25,7 +25,8 @@ public class DepotDAO {
             stmt.setString(10, d.getUtilDepot().getNom());
             stmt.executeUpdate();
             System.out.println("Dépôt inséré.");
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -33,34 +34,29 @@ public class DepotDAO {
     public Depot find(UUID idDepot) {
         String sql = "SELECT * FROM Depot WHERE idDepot = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, idDepot.toString());  // Utiliser idDepot (UUID) pour rechercher
+            stmt.setString(1, idDepot.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                // Créer et retourner un objet Depot avec les données récupérées
-                return new Depot(UUID.fromString(rs.getString("idDepot")),  // Assurez-vous d'utiliser les bonnes colonnes pour la création de l'objet Depot
-                                 rs.getInt("poidsDepot"), 
-                                 null, 
-                                 null, 
-                                 null,
-                                 null,
-                                 rs.getInt("pointsGagnes"),
-                                 null,
-                                 rs.getDate("dateDepot").toLocalDate(),
-                                 rs.getTime("heureDepot").toLocalTime());
+                return new Depot(UUID.fromString(rs.getString("idDepot")), rs.getInt("poidsDepot"), null, null, null,
+                	null, rs.getInt("pointsGagnes"), null, rs.getDate("dateDepot").toLocalDate(),
+                	rs.getTime("heureDepot").toLocalTime()
+                );
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
-        return null; // Si le dépôt n'est pas trouvé
+        return null;
     }
     
     public void deleteByMenage(String menageNomCompte) {
         String sql = "DELETE FROM Depot WHERE menage_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, menageNomCompte); // Utiliser le nom du compte pour référencer le ménage
+            stmt.setString(1, menageNomCompte);
             stmt.executeUpdate();
             System.out.println("Dépôts associés au ménage supprimés.");
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -72,13 +68,13 @@ public class DepotDAO {
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Dépôt supprimé avec succès.");
-            } else {
+            }
+            else {
                 System.out.println("Aucun Dépôt trouvé avec cet ID.");
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-
 }

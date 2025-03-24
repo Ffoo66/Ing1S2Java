@@ -14,8 +14,6 @@ public class CentreTri {
     
 	private static HashMap<Integer, CentreTri> mapCentre = new HashMap<Integer, CentreTri>();
 	private static int compteCentre;
-
-    // Getters & Setters
     
     public int getIdCentre() {
         return this.idCentre;
@@ -78,8 +76,6 @@ public class CentreTri {
     public void setNomC(String nNomC) {
         this.nomCentre = nNomC;
     }
-
-    // Méthodes principales
 
     public void creerBac(Couleur col, int capacite) {
         UUID id = UUID.randomUUID();

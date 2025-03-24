@@ -15,55 +15,50 @@ public class CentreTriDAO {
             stmt.setString(1, centre.getNomC());
             stmt.setInt(2, adresseId);
             stmt.executeUpdate();
-
-            // Récupérer l'ID généré
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
-                int idCentre = rs.getInt(1);  // Récupérer l'ID généré
-                centre.setIdCentre(idCentre); // Associer l'ID à l'objet CentreTri
+                int idCentre = rs.getInt(1);
+                centre.setIdCentre(idCentre);
             }
             System.out.println("Centre de tri ajouté.");
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
     
- // Méthode pour récupérer un CentreTri par ID
     public CentreTri find(int idCentre) {
         String sql = "SELECT * FROM CentreTri WHERE idCentre = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, idCentre);  // Recherche par ID du Centre
+            stmt.setInt(1, idCentre);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 String nomCentre = rs.getString("nomCentre");
                 int adresseId = rs.getInt("adresse_id");
-
-                // Récupérer l'adresse associée à ce CentreTri
-                Adresse adresse = new AdresseDAO(conn).find(adresseId);  // Recherche l'adresse correspondante avec l'ID
-
-                // Créer et retourner un objet CentreTri
-                return new CentreTri(nomCentre, adresse);  // Crée un CentreTri avec le nom et l'adresse
+                Adresse adresse = new AdresseDAO(conn).find(adresseId);
+                return new CentreTri(nomCentre, adresse);
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;  // Si pas trouvé
+        return null;
     }
     
     public void delete(int idCentre) {
         String sql = "DELETE FROM CentreTri WHERE idCentre = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, idCentre);  // Spécifie l'ID du CentreTri à supprimer
+            stmt.setInt(1, idCentre);
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Centre de tri supprimé avec succès.");
-            } else {
+            }
+            else {
                 System.out.println("Aucun Centre de tri trouvé avec cet ID.");
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-
 }
