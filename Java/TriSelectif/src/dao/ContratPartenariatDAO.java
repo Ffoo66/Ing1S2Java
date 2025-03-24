@@ -52,7 +52,7 @@ public class ContratPartenariatDAO {
                 // Récupérer le Commerce associé
                 UUID commerceId = UUID.fromString(rs.getString("idCommerceP"));
                 String nomCommerce = rs.getString("nomCommerce");
-                Commerce commerce = new Commerce(commerceId, nomCommerce, adresseCentre, null, null);  // Créer l'objet Commerce
+                Commerce commerce = new Commerce(nomCommerce, adresseCentre);  // Créer l'objet Commerce
 
                 // Retourner un ContratPartenariat avec ces données
                 return new ContratPartenariat(centre, commerce, dateDebut.toLocalDate(), dateFin.toLocalDate());

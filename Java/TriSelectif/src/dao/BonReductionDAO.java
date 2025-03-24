@@ -54,7 +54,7 @@ public class BonReductionDAO {
                 LocalDate dateExpiration = rs.getDate("dateExpiration").toLocalDate();
 
                 // Récupérer Commerce et Menage via leurs ID
-                Commerce commerce = new Commerce(idCommerce, nomCommerce, null, null, null); // Exemple d'initialisation
+                Commerce commerce = new Commerce(nomCommerce, null); // Exemple d'initialisation
                 Menage menage = new Menage(nomMenage, null, null);  // Exemple d'initialisation
 
                 // Créer et retourner le BonReduction avec toutes les informations

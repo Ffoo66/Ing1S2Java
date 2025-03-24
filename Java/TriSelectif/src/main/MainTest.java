@@ -7,10 +7,10 @@ public class MainTest {
 
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/tri_selectif";
-        String user = "root"; // À adapter
-        String password = "cytech0001"; // À adapter
+        String user = "root";			// À adapter
+        String password = "cytech0001";	// À adapter
 
-        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+        try (Connection connect = DriverManager.getConnection(url, user, password)) {
             System.out.println("Connexion réussie!");
 
             // Appeler InsertTestDAO pour insérer des données

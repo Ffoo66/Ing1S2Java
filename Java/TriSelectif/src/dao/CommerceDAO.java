@@ -33,11 +33,7 @@ public class CommerceDAO {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 // Créer et retourner un objet Commerce avec les données récupérées
-                return new Commerce(UUID.fromString(rs.getString("idCommerce")), 
-                                    rs.getString("nomCommerce"), 
-                                    null,  // L'adresse peut être récupérée ici si nécessaire
-                                    null, 
-                                    null);
+                return new Commerce(rs.getString("nomCommerce"), null);
             }
         } catch (SQLException e) {
             e.printStackTrace();
