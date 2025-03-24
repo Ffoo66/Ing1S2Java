@@ -1,4 +1,5 @@
 package model;
+
 public class Adresse {
 	private int numero;
 	private String nomRue;
@@ -68,8 +69,8 @@ public class Adresse {
 	}
 
 	public String toString() {
-		return "Adresse {\nNumero : " + this.numero + "\nNom rue : " + this.nomRue + "\nCode postal : "
-			+ this.codePostal + "\nVille : " + this.ville + "\n}"
+		return "Adresse {\n\t\tNumero : " + this.numero + "\n\t\tNom rue : " + this.nomRue + "\n\t\tCode postal : "
+			+ this.codePostal + "\n\t\tVille : " + this.ville + "\n\t}\n"
 		;
 	}
 	

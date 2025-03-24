@@ -14,10 +14,6 @@ public class BonReduction {
 		return this.idBon;
 	}
 	
-    public void setIdBon(UUID idBon) {
-        this.idBon = idBon;
-    }
-	
 	public double getValeur() {
 		return this.valeur;
 	}
@@ -38,14 +34,20 @@ public class BonReduction {
 		return this.dateExpiration;
 	}
 	
+	public void setIdBon(UUID nId) {
+		if (!this.commerceBon.getMapBons().containsKey(nId)) {
+			this.idBon = nId;
+		}
+	}
+	
 	public void utiliser() {
 		this.bonUtilise = true;
 	}
 
 	public String toString() {
-		return "BonReduction {\nId bon : " + this.idBon + "\nValeur : " + this.valeur + "\nBon utilisé : "
-			+ this.bonUtilise + "\nCommerce bon : " + this.commerceBon + "\nMénage bon : " + this.menageBon
-			+ "\nDate expiration : " + this.dateExpiration + "\n}"
+		return "BonReduction {\n\tId bon : " + this.idBon + "\n\tValeur : " + this.valeur + "\n\tBon utilisé : "
+			+ this.bonUtilise + "\n\tCommerce bon : " + this.commerceBon.getIdCommerce() + "\n\tMénage bon : "
+			+ this.menageBon.getNom() + "\n\tDate expiration : " + this.dateExpiration + "\n}\n"
 		;
 	}
 	

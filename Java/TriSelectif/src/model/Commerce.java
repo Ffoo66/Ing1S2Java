@@ -9,6 +9,7 @@ public class Commerce {
 	private HashMap<String, Double> produitsAff;
 	private HashMap<UUID, BonReduction>mapBonsC;
 	private HashMap<Integer, ContratPartenariat> mapPartenariats;
+	private static HashMap<UUID, Commerce> mapCommerce = new HashMap<UUID, Commerce>();
 	
 	public UUID getIdCommerce() {
 		return this.idCommerce;
@@ -36,6 +37,10 @@ public class Commerce {
 	
 	public HashMap<Integer, ContratPartenariat> getMapPartner(){
 		return this.mapPartenariats;
+	}
+	
+	public static HashMap<UUID, Commerce> getMapCommerce(){
+		return mapCommerce;
 	}
 	
 	public void setNomCommerce(String nNom) {
@@ -67,22 +72,31 @@ public class Commerce {
 	}
 	
 	public double getReduction(int points, String produit) {
-		return points/this.produitsAff.get(produit);
+		if (this.produitsAff.containsKey(produit)) {
+			return Math.floor(100 * (points/1000.0) * this.produitsAff.get(produit)) / 100;
+		}
+		else {
+			return 0;
+		}
 	}
 	
 	public String toString() {
-		return "Commerce {\nId commerce : " + this.idCommerce + "\nNom commerce : " + this.nomCommerce
-			+ "\nAdresse commerce : " + this.adresseCommerce + "\nProduits affectés : " + this.produitsAff
-			+ "\nMap bons : " + this.mapBonsC + "\nMap contrats : " + this.mapPartenariats + "\n}"
+		return "Commerce {\n\tId commerce : " + this.idCommerce + "\n\tNom commerce : " + this.nomCommerce
+			+ "\n\tAdresse commerce : " + this.adresseCommerce + "\n\tProduits affectés : " + this.produitsAff + "\n}\n"
 		;
 	}
 
-	public Commerce(UUID nId, String nNom, Adresse nAdresse, LocalDate nDateDP, LocalDate nDateFP) {
-		this.idCommerce = nId;
+	public Commerce(String nNom, Adresse nAdresse) {
+        UUID id = UUID.randomUUID();
+        while (mapCommerce.containsKey(id)) {
+            id = UUID.randomUUID();
+        }
+        this.idCommerce = id;
 		this.nomCommerce = nNom;
 		this.adresseCommerce = nAdresse;
 		this.produitsAff = new HashMap<String, Double>();
 		this.mapBonsC = new HashMap<UUID, BonReduction>();
 		this.mapPartenariats = new HashMap<Integer, ContratPartenariat>();
+		mapCommerce.put(this.idCommerce, this);
 	}
 }

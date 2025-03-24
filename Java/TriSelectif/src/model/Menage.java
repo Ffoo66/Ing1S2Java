@@ -66,16 +66,18 @@ public class Menage {
 	
 	public void echangerPts(int points, Commerce commerce, String produit) {
 		if (points <= this.pointsFidelite) {
-			double val = commerce.getReduction(points, produit);
-			BonReduction nBon = new BonReduction(val, commerce, this, LocalDate.now().plusMonths(1));
-			this.pointsFidelite -= points;
-			this.mapBonsM.put(nBon.getIdBon(), nBon);
-			commerce.getMapBons().put(nBon.getIdBon(), nBon);
+			double val = commerce.getReduction(points, produit.toLowerCase());
+			if (val > 0) {
+				BonReduction nBon = new BonReduction(val, commerce, this, LocalDate.now().plusMonths(1));
+				this.pointsFidelite -= points;
+				this.mapBonsM.put(nBon.getIdBon(), nBon);
+				commerce.getMapBons().put(nBon.getIdBon(), nBon);
+			}
 		}
 	}
 	
 	public boolean utiliserBon(BonReduction bon) {
-		if(bon.getBonUtilise()) {
+		if(bon.getBonUtilise() || bon.getDateExp().isBefore(LocalDate.now())) {
 			return false;
 		}
 		else {
@@ -95,9 +97,9 @@ public class Menage {
 	}
 
 	public String toString() {
-		return "Menage {\nNom compte : " + this.nomCompte + "\nMot de passe : "
-			+ this.motDePasse + "\nPoints fidélité : " + this.pointsFidelite + "\nHistorique dépôts : "
-			+ this.historiqueDepotsM + "\nAdresse ménage : " + this.adresseMenage + "\n}"
+		return "Menage {\n\tNom compte : " + this.nomCompte + "\n\tMot de passe : "
+			+ this.motDePasse + "\n\tPoints fidélité : " + this.pointsFidelite + "\n\tAdresse ménage : "
+			+ this.adresseMenage + "\n}\n"
 		;
 	}
 	

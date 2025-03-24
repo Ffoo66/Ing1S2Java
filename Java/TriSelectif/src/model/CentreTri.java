@@ -21,11 +21,7 @@ public class CentreTri {
         return this.idCentre;
     }
 
-    public void setIdCentre(int idCentre) {
-		this.idCentre = idCentre;
-	}
-
-	public String getNomC() {
+    public String getNomC() {
         return this.nomCentre;
     }
 
@@ -71,6 +67,12 @@ public class CentreTri {
     
     public static int getCompteCentre() {
     	return compteCentre;
+    }
+    
+    public void setIdCentre(int nId) {
+    	if (nId >= 0 && !mapCentre.containsKey(nId)) {
+    		this.idCentre = nId;
+    	}
     }
     
     public void setNomC(String nNomC) {
@@ -134,10 +136,6 @@ public class CentreTri {
         }
     }
 
-    public void ajoutDepot(Depot d) {
-        historiqueDepot.put(d.getIdDepot(), d);
-    }
-
     public ArrayList<Depot> getRes(Couleur col, Type t, LocalTime heureD, LocalTime heureF, LocalDate dateD, LocalDate dateF,
     Adresse a, ResCat cat) {
         ArrayList<Depot> resultat = new ArrayList<Depot>();
@@ -150,8 +148,10 @@ public class CentreTri {
         for (Depot d : historiqueDepot.values()) {
             couleurOK = (col == Couleur.toutCol || d.getCouleurDepot().equals(col));
             typeOK = (t == Type.toutType || d.getTypeDepot().equals(t));
-            heureOK = (!d.getHoraire().isBefore(heureD) || !d.getHoraire().isAfter(heureF));
-            dateOK = (dateD.isAfter(dateF) || (!d.getDate().isBefore(dateD) || !d.getDate().isAfter(dateF)));
+            heureOK = (!d.getHoraire().isBefore(heureD) && !d.getHoraire().isAfter(heureF)) ||
+            	((!d.getHoraire().isBefore(heureD) || !d.getHoraire().isAfter(heureF)) && heureD.isAfter(heureF))
+            ;
+            dateOK = (dateD.isAfter(dateF) || (!d.getDate().isBefore(dateD) && !d.getDate().isAfter(dateF)));
             rueOK = (a == null || d.getAdresseDepot().rueEquals(a));
             catOK = (cat == ResCat.total || d.getCorrect().equals(cat));
             if (couleurOK && typeOK && heureOK && dateOK && rueOK && catOK) {
@@ -163,8 +163,10 @@ public class CentreTri {
 
     public void collecter() {
         for (Bac b : mapBac.values()) {
-            b.vider(); // méthode à créer dans Poubelle
-            mapNotifPleine.put(b.getIdBac(), false);
+        	if (b.getAdresseBac().getNum() <= 0) {
+	            b.vider();
+	            mapNotifPleine.put(b.getIdBac(), false);
+        	}
         }
     }
 
@@ -176,11 +178,18 @@ public class CentreTri {
     	Menage m = new Menage(nCompte, nMDP, nAdresse);
         Menage.getMapMenage().put(m.getNom(), m);
     }
-
-    // Constructeur
     
-    public CentreTri(String nomCentre, Adresse adresseCentre) {
+	public String toString() {
+		return "CentreTri {\n\tId centre : " + this.idCentre + "\n\tNom centre : " + this.nomCentre
+			+ "\n\tAdresse centre : " + this.adresseCentre + "\n}\n"
+		;
+	}
+
+	public CentreTri(String nomCentre, Adresse adresseCentre) {
     	if (nomCentre != "" && adresseCentre !=  null) {
+    		while (mapCentre.containsKey(compteCentre)) {
+    			compteCentre++;
+    		}
 	        this.idCentre = compteCentre;
 	        compteCentre++;
 	        this.nomCentre = nomCentre;

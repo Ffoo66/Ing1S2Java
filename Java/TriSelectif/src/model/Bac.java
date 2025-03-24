@@ -35,12 +35,14 @@ public class Bac {
     	return this.contenu;
     }
     
-    public void setContenu(int contenu) {
-		this.contenu = contenu;
-	}
-
-	public void setAdresseBac(Adresse adresse) {
+    public void setAdresseBac(Adresse adresse) {
     	this.adresseBac = adresse;
+    }
+    
+    public void setContenu(int nContenu) {
+    	if (nContenu >= 0 && nContenu <= this.capacite) {
+    		this.contenu = nContenu;
+    	}
     }
     
     public boolean estCorrect(Type t) {
@@ -96,6 +98,7 @@ public class Bac {
 	        	m, LocalDate.now(), LocalTime.now());
 	        }
 	        this.centreTri.getMapDepot().put(d.getIdDepot(), d);
+	        this.centreTri.majBac(this.idBac);
             return true;
         } else {
             System.out.println("Bac " + this.idBac + " plein !");
@@ -126,9 +129,9 @@ public class Bac {
     
     
 	public String toString() {
-		return "Bac {\nId Bac : " + this.idBac + "\nAdresse Bac : " + this.adresseBac
-			+ "\nCentre de tri : " + this.centreTri + "\nCouleur : " + this.couleur + "\nCapacite : " + this.capacite
-			+ "\nPoids : " + this.contenu + "\n}"
+		return "Bac {\n\tId Bac : " + this.idBac + "\n\tAdresse Bac : " + this.adresseBac
+			+ "\n\tCentre de tri : " + this.centreTri.getIdCentre() + "\n\tCouleur : "
+			+ this.couleur + "\n\tCapacite : " + this.capacite + "\n\tPoids : " + this.contenu + "\n}\n"
 		;
 	}
 
