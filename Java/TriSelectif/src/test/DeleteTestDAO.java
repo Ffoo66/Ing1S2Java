@@ -22,7 +22,7 @@ public class DeleteTestDAO {
             AdresseDAO adresseDAO = new AdresseDAO(conn);
             
             
-            // Utilisation des identifiants générés dans InsertTestData
+            // Utilisation des identifiants générés dans InsertTestDAO
             int adresseId = 1;
             
             int idCentre = 1;
