@@ -6,7 +6,7 @@ import java.util.*;
 public class MainTest2 {
 	public static void main (String args[]) {
 		
-		CentreTri ct = new CentreTri("Centre 1", new Adresse(30, "Rue Lemauvais", 95000, "Cergy"));
+		CentreTri ct = new CentreTri("Centre 1", new Adresse(30, "Rue Lemauvais", 95000, "Cergy"), "cytech0001");
 		ct.creerBac(Couleur.gris, 5000);
 		ct.creerBac(Couleur.gris, 5000);
 		ct.creerBac(Couleur.gris, 5000);

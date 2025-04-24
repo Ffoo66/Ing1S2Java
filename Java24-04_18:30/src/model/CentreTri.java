@@ -6,6 +6,7 @@ public class CentreTri {
     private int idCentre;
     private String nomCentre;
     private Adresse adresseCentre;
+    private String motDePasseCentre;
 
     private HashMap<UUID, Bac> mapBac;
     private HashMap<UUID, Depot> historiqueDepot;
@@ -25,6 +26,10 @@ public class CentreTri {
     public Adresse getAdresseC() {
         return this.adresseCentre;
     }
+	
+	public String getMDP() {
+		return this.motDePasseCentre;
+	}
 
     public HashMap<UUID, Bac> getMapBac() {
         return this.mapBac;
@@ -67,6 +72,12 @@ public class CentreTri {
     public void setNomC(String nNomC) {
         this.nomCentre = nNomC;
     }
+	
+	public void setMDP(String nMDP) {
+		if (nMDP != "") {
+			this.motDePasseCentre = nMDP;
+		}
+	}
 
     public void creerBac(Couleur col, int capacite) {
         UUID id = UUID.randomUUID();
@@ -155,13 +166,29 @@ public class CentreTri {
         Menage.getMapMenage().put(m.getNom(), m);
     }
     
+    public CentreTri identifierCentre(int nId, String nMDP) {
+    	if (CentreTri.getMapCentre().containsKey(nId)) {
+    		if (CentreTri.getMapCentre().get(nId).getMDP().equals(nMDP)) {
+    			return CentreTri.getMapCentre().get(nId);
+    		}
+    		else {
+    			System.out.println("Mot de passe incorrect");
+    			return null;
+    		}
+    	}
+    	else {
+    		System.out.println("Identifiant inconnu");
+    		return null;
+    	}
+    }
+    
 	public String toString() {
 		return "CentreTri {\n\tId centre : " + this.idCentre + "\n\tNom centre : " + this.nomCentre
-			+ "\n\tAdresse centre : " + this.adresseCentre + "\n}\n"
+			+ "\n\tAdresse centre : " + this.adresseCentre + "\n\tMDP centre : " + this.motDePasseCentre + "\n}\n"
 		;
 	}
 
-	public CentreTri(String nomCentre, Adresse adresseCentre) {
+	public CentreTri(String nomCentre, Adresse adresseCentre, String nMDP) {
     	if (nomCentre != "" && adresseCentre !=  null) {
     		while (mapCentre.containsKey(compteCentre)) {
     			compteCentre++;
@@ -170,6 +197,7 @@ public class CentreTri {
 	        compteCentre++;
 	        this.nomCentre = nomCentre;
 	        this.adresseCentre = adresseCentre;
+	        this.motDePasseCentre = nMDP;
 	        this.mapBac = new HashMap<UUID, Bac>();
 	        this.historiqueDepot = new HashMap<UUID, Depot>();
 	        this.mapPartenaire = new HashMap<UUID, ContratPartenariat>();
