@@ -38,9 +38,11 @@ Date de rendu : 28 avril 2025
 ├── sql/
 │   └── tri_selectif_schema.sql
 ├── TriSelectif.iml
-├── README.md```
+├── README.md
+```
 
 ## Base de données
+
 La base de données est initialisée à partir du script `tri_selectif_schema.sql`.  
 Les principales tables sont :
 - Adresse
