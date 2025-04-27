@@ -23,7 +23,23 @@ Date de rendu : 28 avril 2025
 - IDE : IntelliJ IDEA
 
 ## Structure du projet
-TriSelectif/ ├── src/ │ ├── model/ (classes métiers : Menage, Depot, CentreTri, etc.) │ ├── dao/ (accès base de données) │ ├── controller/ (contrôleurs JavaFX) │ └── main/ (classe principale) ├── resources/ │ ├── fxml/ (interfaces utilisateur FXML) │ ├── css/ (feuilles de style CSS) ├── lib/ │ └── mysql-connector-j-9.2.0.jar ├── sql/ │ └── tri_selectif_schema.sql ├── TriSelectif.iml ├── README.md
+'''
+TriSelectif/
+├── src/
+│   ├── model/                (classes métiers : Menage, Depot, CentreTri, etc.)
+│   ├── dao/                  (accès base de données)
+│   ├── controller/           (contrôleurs JavaFX)
+│   └── main/                 (classe principale)
+├── resources/
+│   ├── fxml/                 (interfaces utilisateur FXML)
+│   ├── css/                  (feuilles de style CSS)
+├── lib/
+│   └── mysql-connector-j-9.2.0.jar
+├── sql/
+│   └── tri_selectif_schema.sql
+├── TriSelectif.iml
+├── README.md'''
+
 ## Base de données
 La base de données est initialisée à partir du script `tri_selectif_schema.sql`.  
 Les principales tables sont :
