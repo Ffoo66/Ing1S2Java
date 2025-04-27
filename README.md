@@ -23,8 +23,8 @@ Date de rendu : 28 avril 2025
 - IDE : IntelliJ IDEA
 
 ## Structure du projet
-'''
-TriSelectif/
+
+'''TriSelectif/
 ├── src/
 │   ├── model/                (classes métiers : Menage, Depot, CentreTri, etc.)
 │   ├── dao/                  (accès base de données)
