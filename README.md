@@ -24,7 +24,7 @@ Date de rendu : 28 avril 2025
 
 ## Structure du projet
 
-'''TriSelectif/
+```TriSelectif/
 ├── src/
 │   ├── model/                (classes métiers : Menage, Depot, CentreTri, etc.)
 │   ├── dao/                  (accès base de données)
@@ -38,7 +38,7 @@ Date de rendu : 28 avril 2025
 ├── sql/
 │   └── tri_selectif_schema.sql
 ├── TriSelectif.iml
-├── README.md'''
+├── README.md```
 
 ## Base de données
 La base de données est initialisée à partir du script `tri_selectif_schema.sql`.  
