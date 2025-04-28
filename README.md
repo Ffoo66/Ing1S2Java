@@ -74,7 +74,6 @@ La connexion JDBC est configurée dans la classe `Main.java`.
 
 
 ## Remarques
-- Le connecteur JDBC (`mysql-connector-j-9.2.0.jar`) doit être ajouté au projet.
 - Le projet utilise JavaFX pour toutes les interfaces utilisateurs.
 - Aucun serveur externe n'est requis pour l’exécution de l’application.
 
